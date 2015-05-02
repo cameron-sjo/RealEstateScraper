@@ -133,8 +133,7 @@ namespace RealEstateScraper.Logic
         Debug.WriteLine("Listing appears to have no amenities...");
         return;
       }
-
-      // For some odd reason, if I specified I wanted to use the 
+      
       foreach (var amenityNode in root.Descendants("li"))
       {
         var key = amenityNode.Descendants("i").Select(n => n.GetAttributeValue("class")).FirstOrDefault();
@@ -184,7 +183,7 @@ namespace RealEstateScraper.Logic
 
     private static void ParseInfo(HtmlNode node, Listing listing)
     {
-      var infoNode = node.Descendants("div", "info").FirstOrDefault();
+      var infoNode = node.Descendants("div", HtmlClassNames.Info).FirstOrDefault();
 
       if (infoNode == null)
       {
@@ -232,7 +231,7 @@ namespace RealEstateScraper.Logic
 
     private static string RemoveNonEssentialCharacters(string value)
     {
-      return new string(value.Where(c => Char.IsNumber(c) || Char.IsDigit(c) || c == '.' || c == ',').ToArray());
+      return new string(value.Where(c => char.IsNumber(c) || char.IsDigit(c) || c == '.' || c == ',').ToArray());
     }
   }
 }
