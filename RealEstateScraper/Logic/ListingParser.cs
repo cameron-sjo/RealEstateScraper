@@ -31,23 +31,7 @@ namespace RealEstateScraper.Logic
       return descendants.Select(ParseNode).ToList();
     }
 
-    private static Listing ParseNode(HtmlNode node)
-    {
-      if (node == null)
-      {
-        return null;
-      }
-
-      var listing = new Listing();
-
-      ParseImage(node, listing);
-      ParsePriceAndType(node, listing);
-      ParseInfo(node, listing);
-
-      return listing;
-    }
-
-    private static void Map(string key, string value, Listing l)
+    private static void MapAmenities(string key, string value, Listing l)
     {
       key = key.ToLowerInvariant().Trim();
 
@@ -67,6 +51,10 @@ namespace RealEstateScraper.Logic
 
         case HtmlClassNames.SquareFootage:
           l.SquareFootage = ParseToDecimal(RemoveNonEssentialCharacters(value));
+          break;
+
+        case HtmlClassNames.CostPerAcre:
+          l.CostPerAcre = ParseToDecimal(RemoveNonEssentialCharacters(value));
           break;
 
         default:
@@ -133,13 +121,16 @@ namespace RealEstateScraper.Logic
         Debug.WriteLine("Listing appears to have no amenities...");
         return;
       }
-      
+
       foreach (var amenityNode in root.Descendants("li"))
       {
-        var key = amenityNode.Descendants("i").Select(n => n.GetAttributeValue("class")).FirstOrDefault();
+        var key = amenityNode.Descendants("i")
+                             .Select(n => n.GetAttributeValue("class"))
+                             .FirstOrDefault();
+
         var value = amenityNode.InnerText;
 
-        Map(key, value, listing);
+        MapAmenities(key, value, listing);
       }
     }
 
@@ -194,6 +185,22 @@ namespace RealEstateScraper.Logic
       ParseAddress(infoNode, listing);
       ParseDescription(infoNode, listing);
       ParseAmenities(infoNode, listing);
+    }
+
+    private static Listing ParseNode(HtmlNode node)
+    {
+      if (node == null)
+      {
+        return null;
+      }
+
+      var listing = new Listing();
+
+      ParseImage(node, listing);
+      ParsePriceAndType(node, listing);
+      ParseInfo(node, listing);
+
+      return listing;
     }
 
     private static void ParsePriceAndType(HtmlNode listingNode, Listing listing)

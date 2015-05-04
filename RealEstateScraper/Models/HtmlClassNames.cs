@@ -10,5 +10,12 @@ namespace RealEstateScraper.Models
     public const string Bedrooms = "icon-bedrooms";
     public const string Bathrooms = "icon-bathrooms";
     public const string AgentMenuItem = "menu-item-object-agent";
+    public const string CostPerAcre = "fa fa-dollar";
+  }
+
+  internal static class Categories
+  {
+    public const string Residential = "Residential";
+    public const string Land = "Land";
   }
 }

@@ -36,5 +36,7 @@ namespace RealEstateScraper.Models
     public string WebAddress { get; set; }
 
     public string AgentName { get; set; }
+
+    public decimal CostPerAcre { get; set; }
   }
 }
