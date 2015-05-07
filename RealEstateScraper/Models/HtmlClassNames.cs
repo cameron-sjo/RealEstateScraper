@@ -12,10 +12,4 @@ namespace RealEstateScraper.Models
     public const string AgentMenuItem = "menu-item-object-agent";
     public const string CostPerAcre = "fa fa-dollar";
   }
-
-  internal static class Categories
-  {
-    public const string Residential = "Residential";
-    public const string Land = "Land";
-  }
 }

@@ -20,7 +20,7 @@ namespace RealEstateScraper.Logic
     private static IEnumerable<Agent> GetAgentsFromNavbar(HtmlNode root)
     {
       var agents = new List<Agent>();
-      
+
       var agentNodes = root.Descendants("li")
                            .Where(n => n.GetAttributeValue("class", string.Empty).Contains(HtmlClassNames.AgentMenuItem)).ToList();
 

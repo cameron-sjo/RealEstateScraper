@@ -9,11 +9,15 @@ namespace RealEstateScraper.Models
       OtherAmenities = new List<Amenity>();
     }
 
+    public string AgentName { get; set; }
+
     public decimal AreaInSquareFeet { get; set; }
 
     public string Category { get; set; }
 
     public string City { get; set; }
+
+    public decimal CostPerAcre { get; set; }
 
     public string Description { get; set; }
 
@@ -34,9 +38,5 @@ namespace RealEstateScraper.Models
     public string StreetAddress { get; set; }
 
     public string WebAddress { get; set; }
-
-    public string AgentName { get; set; }
-
-    public decimal CostPerAcre { get; set; }
   }
 }
