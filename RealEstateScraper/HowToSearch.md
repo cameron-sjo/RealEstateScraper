@@ -1,6 +1,6 @@
 # How To Search
 
-The search functionality was loosely based off of [StackExchange's search functionality][stackexchange_search].
+The search functionality was loosely based off of [StackOverflow's search functionality][stackoverflow_search].
 
 It requires keywords and parameters to function.
 
@@ -19,4 +19,4 @@ Examples:
  - `price:<250000 bathrooms:>=2 bedrooms:>=3` 
  - `price:0...100000 kind:land`
 
-[stackexchange_search]:https://stackoverflow.com/help/searching
+[stackoverflow_search]:https://stackoverflow.com/help/searching
