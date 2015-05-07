@@ -16,7 +16,7 @@ namespace RealEstateScraper
     {
       AsyncContext.Run(async () =>
       {
-        Console.WriteLine("Please enter the name of agent for whose listings you wish to get: ");
+        Console.WriteLine("Please enter the name of agent for whose listings you wish to get ('all' for all agents' listings): ");
 
         var name = Console.ReadLine();
 
