@@ -156,7 +156,7 @@ namespace RealEstateScraper
           return l => func.Invoke(l).Between(left, right);
 
         case "greaterthanorequalto":
-          value = GetValue(">", query);
+          value = GetValue(">=", query);
           return l => func.Invoke(l) >= value;
 
         case "greaterthan":
