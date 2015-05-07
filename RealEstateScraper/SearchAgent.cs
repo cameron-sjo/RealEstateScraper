@@ -51,7 +51,7 @@ namespace RealEstateScraper
             predicate = GetRangePredicate(l => l.AreaInSquareFeet, match.Value);
             break;
 
-          case"kind":
+          case "kind":
           case "category":
             predicate = GetValuePredicate(l => l.Category, match.Value);
             break;
@@ -139,52 +139,52 @@ namespace RealEstateScraper
       return "equals";
     }
 
-    private static Predicate<Listing> GetRangePredicate(Func<Listing, decimal> func, string value)
+    private static Predicate<Listing> GetRangePredicate(Func<Listing, decimal> func, string query)
     {
-      var @operator = GetOperator(value);
+      var @operator = GetOperator(query);
 
-      value = value.Split(':')[1];
+      query = query.Split(':')[1];
 
-      int index;
-      decimal left;
-      decimal right;
+      decimal value;
 
-     switch (@operator)
+      switch (@operator)
       {
         case "between":
-           index = value.IndexOf("...", StringComparison.Ordinal);
-           left = Convert.ToDecimal(value.Substring(0, index));
-           right = Convert.ToDecimal(value.Substring(index + 3));
+          var betweenOperator = query.IndexOf("...", StringComparison.Ordinal);
+          var left = Convert.ToDecimal(query.Substring(0, betweenOperator));
+          var right = Convert.ToDecimal(query.Substring(betweenOperator + 3));
           return l => func.Invoke(l).Between(left, right);
 
         case "greaterthanorequalto":
-           index = value.IndexOf(">=", StringComparison.Ordinal);
-           right = Convert.ToDecimal(value.Substring(index + 2));
-          return l => func.Invoke(l) >= right;
+          value = GetValue(">", query);
+          return l => func.Invoke(l) >= value;
 
         case "greaterthan":
-          index = value.IndexOf(">", StringComparison.Ordinal);
-          right = Convert.ToDecimal(value.Substring(index+1));
-          return l => func.Invoke(l) > right;
+          value = GetValue(">", query);
+          return l => func.Invoke(l) > value;
 
         case "lessthanorequalto":
-          index = value.IndexOf("<=", StringComparison.Ordinal);
-          right = Convert.ToDecimal(value.Substring(index + 2));
-          return l => func.Invoke(l) <= right;
+          value = GetValue("<=", query);
+          return l => func.Invoke(l) <= value;
 
         case "lessthan":
-          index = value.IndexOf("<", StringComparison.Ordinal);
-          right = Convert.ToDecimal(value.Substring(index + 1));
-          return l => func.Invoke(l) < right;
+          value = GetValue("<", query);
+          return l => func.Invoke(l) < value;
 
         case "equals":
-          index = value.IndexOf("=", StringComparison.Ordinal);
-          right = Convert.ToDecimal(value.Substring(index + 1));
-          return l => func.Invoke(l) == right;
+          value = GetValue("=", query);
+          return l => func.Invoke(l) == value;
 
         default:
           return l => false;
       }
+    }
+
+    private static decimal GetValue(string @operator, string value)
+    {
+      var index = value.IndexOf(@operator, StringComparison.Ordinal);
+
+      return Convert.ToDecimal(value.Substring(index + @operator.Length));
     }
 
     private static Predicate<Listing> GetValuePredicate(Func<Listing, string> func, string value)
