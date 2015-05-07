@@ -6,12 +6,12 @@ It requires keywords and parameters to function.
 
 Examples:
  - `description:dream` - includes all listings with a description that contains the word `dream`
- - `price:>75000` - includes all listings with a price over 75,000
+ - `price:>75000` - includes all listings with a price greater than 75000
 
 It also allows for ranges on numeric types.
 
 Examples:
- - `price:75000...500000` - includes all listings between 75000 and 500000
+ - `price:75000...500000` - includes all listings between 75000 and 500000 (inclusive)
 
 Last but not least, you can have multiple qualifiers!
 
