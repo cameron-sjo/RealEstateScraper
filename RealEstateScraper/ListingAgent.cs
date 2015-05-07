@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using RealEstateScraper.Contracts;
@@ -45,7 +46,7 @@ namespace RealEstateScraper
         return null;
       }
 
-      Console.WriteLine("Attempting generation of listings for {0}", agentWebAddress);
+      Debug.WriteLine("Attempting generation of listings for {0}", agentWebAddress);
 
       var listings = new List<Listing>(await ScrapeHelper.ScrapeAsync(agentWebAddress, ListingParser.ParseDocument));
 
@@ -54,7 +55,7 @@ namespace RealEstateScraper
         listing.AgentName = agentName;
       }
 
-      Console.WriteLine("Generated {0} listings from {1}", listings.Count(), agentWebAddress);
+      Debug.WriteLine("Generated {0} listings from {1}", listings.Count(), agentWebAddress);
 
       return listings;
     }
@@ -63,7 +64,7 @@ namespace RealEstateScraper
     {
       var foundAgents = await ScrapeHelper.ScrapeAsync(HomePage, AgentParser.Parse);
 
-      Console.WriteLine("Found {0} agents.", foundAgents.Count());
+      Debug.WriteLine("Found {0} agents.", foundAgents.Count());
 
       return foundAgents;
     }

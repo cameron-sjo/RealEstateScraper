@@ -10,4 +10,9 @@ namespace RealEstateScraper.Contracts
 
     Task<IEnumerable<Listing>> GetListingsForAgentAsync(string agentName);
   }
+
+  public interface ISearchAgent
+  {
+    IEnumerable<Listing> Search(string searchText);
+  }
 }
